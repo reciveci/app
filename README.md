@@ -1,4 +1,4 @@
-Onsen UI Quick Startup Guide
+ReciVeci - Onsen UI Quick Startup Guide
 ====
 
 This document describes the minimum information required to develop an app using Onsen UI.
