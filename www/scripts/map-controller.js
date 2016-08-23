@@ -46,17 +46,22 @@ ShowHideLayers = function(event) {
   else if(event.target.id == "layerBusiness") {
     if(event.target.checked) {
       geojsonLayer_business.addTo(map);
+      localStorage.setItem("estado_bussines","activo");
+           
     }
     else {
-      map.removeLayer(geojsonLayer_business);
+      map.removeLayer(geojsonLayer_business);      
+      localStorage.removeItem("estado_bussines");
     }
   }
   else if(event.target.id == "layerAffiliations") {
     if(event.target.checked) {
       geojsonLayer_affiliations.addTo(map);
+       localStorage.setItem("estado_affiliations","elegido");
     }
     else {
       map.removeLayer(geojsonLayer_affiliations);
+      localStorage.removeItem("estado_affiliations");
     }
   }
 }
@@ -135,6 +140,15 @@ var loadMap = function() {
                 onEachFeature: traits
               });
 
+
+              if(localStorage.estado_bussines=="activo"){
+
+                    geojsonLayer_business.addTo(map);
+
+                    document.getElementById("layerBusiness").checked=true;                
+                  
+                  }
+
             }).fail(function() {
               // Retrieve data from cache
               var business = JSON.parse(localStorage.getItem('businessData'));
@@ -184,6 +198,16 @@ $.getJSON(AFFILIATIONS_JSON,
         onEachFeature: traits
     });
 
+    if(localStorage.estado_affiliations=="elegido"){
+
+
+            geojsonLayer_affiliations.addTo(map);
+            document.getElementById("layerAffiliations").checked=true;
+
+          }
+
+
+
   }).fail(function() {
 
     // Retrieve data from cache
@@ -208,6 +232,18 @@ function getStyle(feature) {
           opacity: feature.properties.opacity};
 }
 
+
+ocultarMenu=function(){
+  document.getElementById("barra").style.display='none';
+}
+
+
+
+mostrarMenu=function(){
+  document.getElementById("barra").style='font-size: 20px; width: 1em;';
+}
+
+
 function onEachFeature(feature, layer) {
   //console.log(layer);
   if (feature.properties && feature.properties.schedule) {
@@ -218,7 +254,7 @@ function onEachFeature(feature, layer) {
     });
 
     // Insert whatever you want into the container, using whichever approach you prefer
-    container.html("<div class='map-popup'>" +
+    container.html("<div class='map-popup' onclick='ocultarMenu()'>" +
                 "<a class='profile-link' href='#'>" +
                 // "<div class='centered profile-icon' style='color: " + feature.properties["color"] + "; opacity: 0.4;'><i class='icon ion-android-walk'></i></div>" +
                 "<div class='centered'><img class='wastepickerpic' src='" + feature.properties["waste_picker-image_url"] + "'/></div>" +

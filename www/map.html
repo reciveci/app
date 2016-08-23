@@ -35,7 +35,7 @@
     <ons-toolbar>
       <div class="left">
         <ons-toolbar-button ng-click="menu.toggleMenu()">
-          <ons-icon icon="ion-navicon" style="font-size: 20px; width: 1em;"> Opciones</ons-icon>
+          <ons-icon icon="ion-navicon" style="font-size: 20px; width: 1em;" id="barra"> Opciones</ons-icon>
         </ons-toolbar-button>
       </div>
     </ons-toolbar>
@@ -89,7 +89,7 @@
 	          <div class="left">
 	            <ons-toolbar-button ng-click="mapNavigator.popPage()">
 	            	<!-- <ons-back-button> -->
-	            		<ons-icon icon="ion-arrow-left-c" class="profile-backbutton">
+	            		<ons-icon icon="ion-arrow-left-c" class="profile-backbutton" onclick="mostrarMenu()">
 	            		</ons-icon>
 	            	<!-- </ons-back-button> -->
 	        	</ons-toolbar-button>
