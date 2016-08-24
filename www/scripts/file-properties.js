@@ -1,8 +1,8 @@
 myApp.factory('$properties',[function(){
 
   var properties = {
-    ip:"192.168.0.110",
-    port:"5000"
+    ip:"api-reciveci.rhcloud.com",
+    port:"80"
  	};
 
 	return properties;
