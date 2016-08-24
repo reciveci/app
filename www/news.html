@@ -7,6 +7,13 @@
         <i class="fa fa-spinner fa-spin fa-2x"></i>
       </ons-modal>
 
+   <!-- espacio para el popup por favor no modificar-->
+      <ons-row id="noticias">
+      <ons-col width="95px">
+             
+      </ons-col>
+      </ons-row>
+
 
       <ons-pull-hook var="loader" ng-action="loadDataPull($done)">
         <span ng-switch="loader.getCurrentState()">
@@ -25,17 +32,17 @@
             Algo se ha salido fuera de control, vuelve a intentar por favor
           </div>
         </ons-list-item>
-        <ons-list-item modifier="chevron" class="news-entry" ng-repeat="newObj in news" ng-click="showDetail(newObj)">
+        <ons-list-item modifier="chevron" class="news-entry" ons-lazy-repeat="MyDelegate" ng-click="showDetail(item)">
 
           <ons-row>
             <ons-col width="95px">
-              <img class="subcat-pic" ng-src="{{newObj.image_url}}"/>
+              <img class="subcat-pic" ng-src="{{item.image_url}}"/>
             </ons-col>
             <ons-col>
               <div class="news-title">
-                {{newObj.title}}
+                {{item.title}}
               </div>
-              <div class="news-date">{{newObj.created_at | timeAgo}}</div>
+              <div class="news-date">{{item.created_at | timeAgo}}</div>
             </ons-col>
             <ons-col width="20px"></ons-col>
           </ons-row>
@@ -71,5 +78,18 @@
       </div>
     </ons-page>
   </ons-template>
+
+
+  <ons-template id="popover.html">
+   <ons-popover
+     cancelable>
+         <div style="text-align: center; opacity: 0.5;">
+               <p>Tip</p>
+               <p><small> Puedes halar la pantalla hacia abajo, para actualizar las noticias</small></p>
+             </div>
+     </ons-popover>
+     </ons-template>
+
+
 </div>
 

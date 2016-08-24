@@ -1,14 +1,12 @@
 myApp.controller('NewsController', function($scope,$news, $timeout) {
 
-
-/*$http.get('connection.properties').then(function (response) {
-        console.log(response.data.a);
-        console.log('a is ', response.data.a);
-        console.log('b is ', response.data.b);
-      });*/
-
     $scope.news = [];
     $scope.success = true;
+
+  //Creando el popOver para el tip
+    ons.createPopover('popover.html').then(function(popover) {
+    $scope.popover = popover;
+  });
 
     
     var loadData = function($done) {
@@ -56,6 +54,12 @@ myApp.controller('NewsController', function($scope,$news, $timeout) {
   // Initial load
   $timeout(function() {
       loadData();
+      var newsAlertExecuted = localStorage.getItem('newsOpened');
+      if (newsAlertExecuted == null) {
+        localStorage.setItem('newsOpened', 'Y');
+        console.log("se carga el popover");
+        $scope.popover.show('#noticias');
+      }
     },100);
 
 
@@ -96,6 +100,27 @@ myApp.controller('NewsController', function($scope,$news, $timeout) {
           $scope.dialogs[dlg].show();
         }
     };
+
+/* Función que permite el funcionamiento del scroll infinito*/
+    $scope.MyDelegate = {
+        countItems: function() {
+        // Return number of items.
+        return $scope.news.length;
+      },
+
+      calculateItemHeight: function(index) {
+        // Return the height of an item in pixels.
+        return 99;
+      },
+
+      configureItemScope: function(index, itemScope) {
+        // Initialize scope
+        itemScope.item = $scope.news[index];
+      }
+};
+
+
+
 
 
 

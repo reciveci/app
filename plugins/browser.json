@@ -12,6 +12,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "ec.reviceci.app"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "ec.reviceci.app"
         }
     },
     "dependent_plugins": {}
