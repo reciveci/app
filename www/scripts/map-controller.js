@@ -288,20 +288,25 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
     /*============FUNCION PARA LA GEOLOCALIZACION==========*/
 
+
     function onLocationFound(e) {
-        var imagen = new L.icon({iconUrl:"images/location_icon.png"});
-        L.marker(e.latlng,{icon:imagen}).addTo(map);
+        var myPosition = L.icon({iconUrl:"images/myPosition.png", iconAnchor:[24,56]});
+        var radius = e.accuracy / 2;
+        L.marker(e.latlng,{icon: myPosition}).addTo(map);
+        L.circle(e.latlng, radius).addTo(map);
     }
+
     function onLocationError(e) {
-        alert(e.message);
+        //alert(e.message);
+        alert("Localizacion no Encontrada, por favor active el GPS de su dispositivo");
     }
 
-    obtenerPosicion = function(){
-        console.log("Funcion Geolocalizacion");
 
+    $scope.obtenerPosicion = function(){
+        console.log("Funcion Geolocalizacion");
         map.locate({setView: true, maxZoom:15});
         map.on('locationfound', onLocationFound);
-        map.on('locationerror', onLocationError);
+        map.on('locationerror', onLocationError); 
 
     }
     //$scope.obtenerPosicion();

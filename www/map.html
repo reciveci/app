@@ -38,6 +38,11 @@
                         <ons-icon icon="ion-navicon" style="font-size: 20px; width: 1em;" id="barra"> Opciones</ons-icon>
                     </ons-toolbar-button>
                 </div>
+                <div class="right">
+                    <ons-toolbar-button ng-click="obtenerPosicion()">
+                       <ons-icon icon="ion-location" style="font-size: 20px;">Mi Ubicación</ons-icon>                        
+                    </ons-toolbar-button>
+                </div>
             </ons-toolbar>
 
             <ons-navigator var="mapNavigator">
@@ -72,15 +77,6 @@
                 <label for="layerAffiliations">Centros de Acopio</label>
                 <input id="layerAffiliations" type="checkbox" onclick="ShowHideLayers(event)"/>
             </ons-list-item>
-            <ons-list-item>
-                <!--      <label for="layerAffiliations">Mi Ubicacion</label>-->
-                <!--                <input id="layerPosition" type="button" onclick="obtenerPosicion()" value="Mi Ubicacion"/>-->
-                <ons-button id="layerPosition" onclick="obtenerPosicion()" modifier="large--cta">
-                    Mi Ubicacion
-                </ons-button>
-            </ons-list-item>
-
-
         </ons-list>
 
     </ons-template>
