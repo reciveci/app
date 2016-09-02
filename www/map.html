@@ -1,31 +1,5 @@
 <div ng-controller="MapController" >
 
-
-    <!--ANTIGUA BARRA DE NAVEGACION LATERAL (NO BORRAR CODIGO )>
-<ons-navigator title="Navigator" var="mapNavigator">
-<!-- <ons-navigator title="Navigator" var="mapNavigator" ons-postpush="pilotNotification($event);">
-<ons-page>
-<nav id='filters' class='filter-ui'>
-<!--<label for="layerWastePickers">Reciclador@s</label>
-<input id="layerWastePickers" type="checkbox" onclick="ShowHideLayers(event)" checked="checked" />
-<br>
-<br>
-<label for="layerBusiness">Negocios</label>
-<input id="layerBusiness" type="checkbox" onclick="ShowHideLayers(event)">
-
-<br>
-<br>
-<label for="layerAffiliations">Centros de Acopio</label>
-<input id="layerAffiliations" type="checkbox" onclick="ShowHideLayers(event)"/>
-</nav>
-
-
-<!--<div id="map"></div>
-</ons-page>
-</ons-navigator>-->
-
-
-
     <ons-sliding-menu main-page="page1.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" type="overlay" >
         <div></div>
     </ons-sliding-menu>
@@ -39,26 +13,15 @@
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
-
             <ons-navigator var="mapNavigator">
                 <ons-page>
                     <div id="map"></div>
                 </ons-page>
             </ons-navigator>
-
-
-
-
-            <p style="text-align: center; color: #999; padding-top: 100px;">Page1 Contents</p>
         </ons-page>
     </ons-template>
 
-
-
-
     <ons-template id="menu.html">
-
-
         <ons-list>
             <ons-list-item >
                 <label for="layerWastePickers">Reciclador@s</label>
@@ -80,9 +43,7 @@
                 </ons-button>
             </ons-list-item>
 
-
         </ons-list>
-
     </ons-template>
 
 
@@ -96,7 +57,7 @@
                 <div class="left">
                     <ons-toolbar-button ng-click="mapNavigator.popPage()">
                         <!-- <ons-back-button> -->
-                        <ons-icon icon="ion-arrow-left-c" class="profile-backbutton" onclick="mostrarMenu()">
+                        <ons-icon icon="ion-arrow-left-c" class="profile-backbutton">
                         </ons-icon>
                         <!-- </ons-back-button> -->
                     </ons-toolbar-button>
@@ -190,11 +151,6 @@
             </div>
         </ons-page>
     </ons-template>
-
-
-
-
-
 
 
 </div>

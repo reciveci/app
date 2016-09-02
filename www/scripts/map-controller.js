@@ -50,7 +50,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
             }
             else {
-                map.removeLayer(geojsonLayer_business);      
+                map.removeLayer(geojsonLayer_business);
                 localStorage.removeItem("estado_bussines");
             }
         }
@@ -69,7 +69,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
     var loadMap = function() {
 
-        map = L.map('map').setView([-0.1832911226129649, -78.48079204559326], 15);
+        map = L.map('map').setView([-0.1992984567438711, -78.48349571228026], 13);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamExOTc5IiwiYSI6ImNpazcyZHFtcjAxOGJ2ZGt0NGNhamQ1cXQifQ.Kkz4bJY_fOE6PM9YaWzJIg',
                     {
@@ -145,7 +145,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
                 geojsonLayer_business.addTo(map);
 
-                document.getElementById("layerBusiness").checked=true;                
+                document.getElementById("layerBusiness").checked=true;
 
             }
 
@@ -233,17 +233,6 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
     }
 
 
-    ocultarMenu=function(){
-        document.getElementById("barra").style.display='none';
-    }
-
-
-
-    mostrarMenu=function(){
-        document.getElementById("barra").style='font-size: 20px; width: 1em;';
-    }
-
-
     function onEachFeature(feature, layer) {
         //console.log(layer);
         if (feature.properties && feature.properties.schedule) {
@@ -254,7 +243,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             });
 
             // Insert whatever you want into the container, using whichever approach you prefer
-            container.html("<div class='map-popup' onclick='ocultarMenu()'>" +
+            container.html("<div class='map-popup'>" +
                            "<a class='profile-link' href='#'>" +
                            // "<div class='centered profile-icon' style='color: " + feature.properties["color"] + "; opacity: 0.4;'><i class='icon ion-android-walk'></i></div>" +
                            "<div class='centered'><img class='wastepickerpic' src='" + feature.properties["waste_picker-image_url"] + "'/></div>" +
