@@ -7,7 +7,6 @@ function onDeviceReady() {
         var iosId = '1083627779';
         var androidPackageName = 'ec.reviceci.app';
 
-
 $specialOffer.init({
             id           : 'my-special-offer' + appVersion,
             showOnCount  : 5,
