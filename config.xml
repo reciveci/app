@@ -1,74 +1,36 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ec.reviceci.app" version="0.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-
-  <name>ReciVeci</name>
-  <description>
+    <name>ReciVeci</name>
+    <description>
       Iniciativa ciudadana enfocada a incrementar y potenciar la labor de los recicladores de base en Ecuador a través de la educación e involucramiento consciente de los ciudadanos.
   </description>
-  <author email="info@reciveci.ec" href="http://www.reciveci.ec">
+    <author email="info@reciveci.ec" href="http://www.reciveci.ec">
       ReciVeci
   </author>
-
-
-  <!-- Allow navigation -->
-  <plugin name="cordova-plugin-whitelist" />
-  <allow-navigation href="*" />
-  <allow-navigation href="data:*" />
-
-
-  <plugin name="cordova-plugin-inappbrowser" />
-  <access origin="*" />
-  <!-- <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
-  <access origin="*" browserOnly="true"/> -->
-
-  <platform name="android" />
-  <platform name="ios" />
-
-
-
-  <content src="index.html" />
-  <icon src="icon.png" />
-  <!-- <splash src="splash.png" /> -->
-
-  <!-- <preference name="SplashScreen" value="screen" />
-  <preference name="SplashScreenDelay" value="5000" />
-  <preference name="SplashMaintainAspectRatio" value="true|false" /> -->
-
-
-
-
-  <!-- Android -->
-
-  <platform name="android">
-    <preference name="orientation" value="portrait" />
-    <!-- <splash src="res/drawable-mdpi/splash.png" density="mdpi"/> -->
-  </platform>
-
-
-  <!-- iOS -->
-
-  <platform name="ios">
-    <preference name="orientation" value="portrait" />
-
-    <!-- iPhone / iPod Touch -->
-    <icon src="icon-57.png" platform="ios" width="57" height="57" />
-    <icon src="icon-57@2x.png" platform="ios" width="114" height="114" />
-
-    <!-- iPad -->
-    <icon src="icon-72.png" platform="ios" width="72" height="72" />
-    <icon src="icon-72@2x.png" platform="ios" width="144" height="144" />
-
-  </platform>
-
-
-
-
-  <feature name="InAppBrowser">
-    <param name="android-package" value="org.apache.cordova.InAppBrowser"/>
-  </feature>
-  <feature name="InAppBrowser">
-      <param name="ios-package" value="CDVInAppBrowser" />
-  </feature>
-
-
+    <plugin name="cordova-plugin-whitelist" />
+    <allow-navigation href="*" />
+    <allow-navigation href="data:*" />
+    <plugin name="cordova-plugin-inappbrowser" />
+    <access origin="*" />
+    <platform name="android" />
+    <platform name="ios" />
+    <content src="index.html" />
+    <icon src="icon.png" />
+    <platform name="android">
+        <preference name="orientation" value="portrait" />
+    </platform>
+    <platform name="ios">
+        <preference name="orientation" value="portrait" />
+        <icon height="57" platform="ios" src="icon-57.png" width="57" />
+        <icon height="114" platform="ios" src="icon-57@2x.png" width="114" />
+        <icon height="72" platform="ios" src="icon-72.png" width="72" />
+        <icon height="144" platform="ios" src="icon-72@2x.png" width="144" />
+    </platform>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.InAppBrowser" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
+    <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
 </widget>
