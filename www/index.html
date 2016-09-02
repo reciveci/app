@@ -43,9 +43,11 @@
     <!-- --------------- App init --------------- -->
 
     <title>ReciVeci</title>
+    <script src="lib/ng-special-offer.js"></script>
+    <script src="lib/ngStorage.min.js"></script>
 
     <script>
-        var myApp = angular.module('myApp', ['onsen','ngResource','yaru22.angular-timeago','ngSanitize']);
+        var myApp = angular.module('myApp', ['onsen','ngResource','yaru22.angular-timeago','ngSanitize','ngSpecialOffer','ngStorage']);
 
         var launchTour = function() {
           var tourExecuted = localStorage.getItem('tourExecuted');
@@ -126,8 +128,9 @@
     <!--
       Comment this line to prevent script message on browser development machine.
       Uncomment before genering platform installer
-      <script src="cordova.js"></script>
     -->
+      <script src="cordova.js"></script>
+    
 
 
 

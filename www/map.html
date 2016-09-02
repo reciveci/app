@@ -12,6 +12,11 @@
                         <ons-icon icon="ion-navicon" style="font-size: 20px; width: 1em;" id="barra"> Opciones</ons-icon>
                     </ons-toolbar-button>
                 </div>
+                <div class="right">
+                    <ons-toolbar-button ng-click="obtenerPosicion()">
+                       <ons-icon icon="ion-location" style="font-size: 20px;">Mi Ubicación</ons-icon>
+                    </ons-toolbar-button>
+                </div>
             </ons-toolbar>
             <ons-navigator var="mapNavigator">
                 <ons-page>
@@ -42,7 +47,6 @@
                     Mi Ubicacion
                 </ons-button>
             </ons-list-item>
-
         </ons-list>
     </ons-template>
 
