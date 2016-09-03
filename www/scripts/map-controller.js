@@ -282,18 +282,20 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
         var myPosition = L.icon({iconUrl:"images/myPosition.png", iconAnchor:[24,56]});
         var radius = e.accuracy / 2;
         L.marker(e.latlng,{icon: myPosition}).addTo(map);
-        L.circle(e.latlng, radius).addTo(map);
+        //L.circle(e.latlng, radius).addTo(map);
+
     }
 
     function onLocationError(e) {
         //alert(e.message);
-        alert("Localizacion no Encontrada, por favor active el GPS de su dispositivo");
+        alert("Localización no encontrada, por favor active el GPS de su dispositivo");
+        stopLocate();  
     }
 
-
+    
     $scope.obtenerPosicion = function(){
         console.log("Funcion Geolocalizacion");
-        map.locate({setView: true, maxZoom:15});
+        map.locate({setView: true, maxZoom:15, timeout: 5000});
         map.on('locationfound', onLocationFound);
         map.on('locationerror', onLocationError); 
 

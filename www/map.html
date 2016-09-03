@@ -1,4 +1,4 @@
-<div ng-controller="MapController" >
+<div ng-controller="MapController">
 
     <ons-sliding-menu main-page="page1.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" type="overlay" >
         <div></div>
@@ -13,8 +13,8 @@
                     </ons-toolbar-button>
                 </div>
                 <div class="right">
-                    <ons-toolbar-button ng-click="obtenerPosicion()">
-                       <ons-icon icon="ion-location" style="font-size: 20px;">Mi Ubicación</ons-icon>
+                    <ons-toolbar-button ng-click="obtenerPosicion()">Mi Ubicación
+                       <ons-icon icon="ion-location" style="font-size: 20px;"></ons-icon>
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
@@ -39,13 +39,6 @@
             <ons-list-item>
                 <label for="layerAffiliations">Centros de Acopio</label>
                 <input id="layerAffiliations" type="checkbox" onclick="ShowHideLayers(event)"/>
-            </ons-list-item>
-            <ons-list-item>
-                <!--      <label for="layerAffiliations">Mi Ubicacion</label>-->
-                <!--                <input id="layerPosition" type="button" onclick="obtenerPosicion()" value="Mi Ubicacion"/>-->
-                <ons-button id="layerPosition" onclick="obtenerPosicion()" modifier="large--cta">
-                    Mi Ubicacion
-                </ons-button>
             </ons-list-item>
         </ons-list>
     </ons-template>
