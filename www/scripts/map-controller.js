@@ -288,16 +288,16 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
     function onLocationError(e) {
         //alert(e.message);
-        alert("Localización no encontrada, por favor active el GPS de su dispositivo");
-        stopLocate();  
+        alert("Ubicación no encontrada, por favor active el Servicio de Ubicación(GPS) de su dispositivo");
+        stopLocate();
     }
 
-    
+
     $scope.obtenerPosicion = function(){
         console.log("Funcion Geolocalizacion");
         map.locate({setView: true, maxZoom:15, timeout: 5000});
         map.on('locationfound', onLocationFound);
-        map.on('locationerror', onLocationError); 
+        map.on('locationerror', onLocationError);
 
     }
     //$scope.obtenerPosicion();
