@@ -128,7 +128,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
 
 
-            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[24,56]});
+            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[24,70]});
 
             layerBusiness = L.geoJson(business,{
                 onEachFeature: traits
