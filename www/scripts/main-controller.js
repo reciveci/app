@@ -11,8 +11,8 @@ function onDeviceReady() {
 $specialOffer.init({
             id           : 'my-special-offer' + appVersion,
             showOnCount  : 5,
-            title        : 'Calificar esta aplicación',
-            text         : 'Si te gusta esta aplicación por favor toma un momento para evaluarla',
+            title        : 'Califica esta aplicación',
+            text         : 'Agradecemos tu calificación y comentarios ya que nos ayudan a seguir mejorando',
             agreeLabel   : 'Calificar APP',
             remindLabel  : 'Recordarmelo mas tarde',
             declineLabel : 'No gracias',
@@ -28,7 +28,7 @@ $specialOffer.init({
                 // declined
             },
             onRemindMeLater : function () {
-                // will be reminded in 5 more uses
+                //showOnCount:0
             },
         });
     };

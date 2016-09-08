@@ -133,12 +133,13 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             };
 
 
-            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png"});
-
+            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[24,56]});
             geojsonLayer_business = L.geoJson(business,{
                 //style: getStyle,
                 onEachFeature: traits
             });
+
+
 
 
             if(localStorage.estado_bussines=="activo"){
@@ -189,9 +190,10 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                 layer.bindPopup(container[0]);
 
                 layer.setIcon(imagen);
+                //console.log(feature.geometry.coordinates);
             };
 
-            var imagen = new L.icon({iconUrl:"images/acopio3.png"});
+            var imagen = new L.icon({iconUrl:"images/acopio3.png", iconAnchor:[24,56]});
 
             geojsonLayer_affiliations = L.geoJson(affiliations,{
                 //style: getStyle,
