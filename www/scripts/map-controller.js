@@ -1,75 +1,18 @@
 myApp.controller('MapController', function($scope, $timeout,$properties) {
 
-
-
-
-    $scope.openProfile = function(feature) {
-        $scope.mapNavigator.pushPage('profile.html');
-        //$scope.ons.slidingMenu.setMainPage("profile.html", {closeMenu: true});
-        $scope.currentWastePicker = feature.properties;
-    };
-
-    $scope.openAffiliation = function(feature) {
-        $scope.mapNavigator.pushPage('new.html');
-        $scope.currentAffiliation= feature.properties;
-    };
-
-
     var map;
-    var geojsonLayer;
     var popup;
-    var geojsonLayer_affiliations;
-    var geojsonLayer_business;
-
+    var layerSectors;
+    var layerRoutes;
+    var layerAffiliations;
+    var layerBusiness;
 
     //algoritmo usado con checkboxs
 
-    ShowHideLayers = function(event) {
-        if(event.target.id == "layerWastePickers") {
-            if(event.target.checked) {
-                geojsonLayer.addTo(map);
-                var mapAlertExecuted = localStorage.getItem('mapAlertExecuted');
-                // console.log("tourExecuted: " + tourExecuted);
-                if (mapAlertExecuted == null) {
-                    localStorage.setItem('mapAlertExecuted', 'Y');
-                    popup = L.popup()
-                        .setLatLng([-0.18292634404976632, -78.47974061965942])
-                        .setContent("Haz un tab sobre cada línea para</br>conocer a <strong>l@s reciclador@s<strong>")
-                        .openOn(map);
-                }
-            }
-            else {
-                map.closePopup(popup);
-                map.removeLayer(geojsonLayer);
-            }
-        }
-        else if(event.target.id == "layerBusiness") {
-            if(event.target.checked) {
-                geojsonLayer_business.addTo(map);
-                localStorage.setItem("estado_bussines","activo");
-
-            }
-            else {
-                map.removeLayer(geojsonLayer_business);      
-                localStorage.removeItem("estado_bussines");
-            }
-        }
-        else if(event.target.id == "layerAffiliations") {
-            if(event.target.checked) {
-                geojsonLayer_affiliations.addTo(map);
-                localStorage.setItem("estado_affiliations","elegido");
-            }
-            else {
-                map.removeLayer(geojsonLayer_affiliations);
-                localStorage.removeItem("estado_affiliations");
-            }
-        }
-    }
-
-
     var loadMap = function() {
 
-        map = L.map('map').setView([-0.1832911226129649, -78.48079204559326], 15);
+        // map = L.map('map').setView([-0.1992984567438711, -78.48349571228026], 13);
+        map = L.map('map').setView([-0.1971527023738858, -78.49267959594727], 13);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamExOTc5IiwiYSI6ImNpazcyZHFtcjAxOGJ2ZGt0NGNhamQ1cXQifQ.Kkz4bJY_fOE6PM9YaWzJIg',
                     {
@@ -78,12 +21,62 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             id: 'mapbox.streets'
         }).addTo(map);
 
-        // Layes
-        var routes;
-        var business ;
-        var affiliations ;
 
+        map.on("zoomend", function (e) {
+          if (localStorage.showLayerSectionsOrRoutes == "true") {
+            showLayerSectionsOrRoutes();
+          }
+        });
+
+        // Layers
+        var routes;
+        var business;
+        var affiliations;
+        var sectors;
+
+        //////////
+        // Sectors
+        //////////
+        var SECTORS_JSON='http://'+$properties.ip+':'+$properties.port+'/map/sectors.json';
+        // console.log(SECTORS_JSON);
+        $.getJSON(SECTORS_JSON,
+          function(sector) {
+            var sectorData = JSON.stringify(sector);
+            localStorage.setItem('sectorData', sectorData);
+            // console.log(sectorData);
+
+            layerSectors = L.geoJson(sector,
+                                     {
+                                        style: getSectorStyle,
+                                        onEachFeature: onEachFeature
+                                    });
+
+            localStorage.setItem("showLayerSectionsOrRoutes","true");
+            layerSectors.addTo(map);
+
+          }).fail(function() {
+              // Retrieve data from cache
+              var sectors = JSON.parse(localStorage.getItem('sectorData'));
+
+              if (sectors != null) {
+                  layerSectors = L.geoJson(sectors,
+                                           {
+                                            style: getSectorStyle,
+                                            onEachFeature: onEachFeature
+                                           });
+
+                  localStorage.setItem("showLayerSectionsOrRoutes","true");
+                  layerSectors.addTo(map);
+
+              } else {
+                  console.log(error);
+              }
+          });
+
+
+        /////////
         // Routes
+        /////////
         var ROUTES_JSON='http://'+$properties.ip+':'+$properties.port+'/map/routes.json';
         // console.log(ROUTES_JSON);
         $.getJSON(ROUTES_JSON,
@@ -92,34 +85,35 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             localStorage.setItem('routesData', routesData);
             //console.log(routesData);
 
-            geojsonLayer = L.geoJson(routes,
-                                     {
+            layerRoutes = L.geoJson(routes, {
                 style: getStyle,
                 onEachFeature: onEachFeature
             });
 
-            geojsonLayer.addTo(map);
+            // layerRoutes.addTo(map);
 
-        }
-                 ).fail(function() {
+        }).fail(function() {
             // Retrieve data from cache
             var routes = JSON.parse(localStorage.getItem('routesData'));
 
             if (routes != null) {
-                geojsonLayer = L.geoJson(routes,
+                layerRoutes = L.geoJson(routes,
                                          {
-                    style: getStyle,
-                    onEachFeature: onEachFeature
-                });
+                                          style: getStyle,
+                                          onEachFeature: onEachFeature
+                                         });
 
-                geojsonLayer.addTo(map);
-                $("#layerWastePickers").prop('checked',true);
+                // layerRoutes.addTo(map);
+                // $("#layerWastePickers").prop('checked',true);
             } else {
                 console.log(error);
             }
         });
 
 
+        ///////////
+        // Business
+        ///////////
         var BUSINESS_JSON='http://'+$properties.ip+':'+$properties.port+'/map/business.json';
         $.getJSON(BUSINESS_JSON, function(business) {
             var businessData = JSON.stringify(business);
@@ -133,9 +127,10 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             };
 
 
+
             var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[24,56]});
-            geojsonLayer_business = L.geoJson(business,{
-                //style: getStyle,
+
+            layerBusiness = L.geoJson(business,{
                 onEachFeature: traits
             });
 
@@ -144,9 +139,9 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
             if(localStorage.estado_bussines=="activo"){
 
-                geojsonLayer_business.addTo(map);
+                layerBusiness.addTo(map);
 
-                document.getElementById("layerBusiness").checked=true;                
+                document.getElementById("layerBusiness").checked=true;
 
             }
 
@@ -155,12 +150,10 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             var business = JSON.parse(localStorage.getItem('businessData'));
 
             if (business!= null) {
-                geojsonLayer_business = L.geoJson(business,
-                                                  {
-                    ///style: getStyle,
+                layerBusiness = L.geoJson(business,{
                     onEachFeature: traits
                 });
-                geojsonLayer_business.addTo(map);
+                layerBusiness.addTo(map);
                 $("#layerBusiness").prop('checked',true);
 
             } else {
@@ -195,15 +188,14 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
             var imagen = new L.icon({iconUrl:"images/acopio3.png", iconAnchor:[24,56]});
 
-            geojsonLayer_affiliations = L.geoJson(affiliations,{
-                //style: getStyle,
+            layerAffiliations = L.geoJson(affiliations,{
                 onEachFeature: traits
             });
 
             if(localStorage.estado_affiliations=="elegido"){
 
 
-                geojsonLayer_affiliations.addTo(map);
+                layerAffiliations.addTo(map);
                 document.getElementById("layerAffiliations").checked=true;
 
             }
@@ -216,8 +208,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             var affiliations = JSON.parse(localStorage.getItem('affiliationsData'));
 
             if (affiliations!= null) {
-                geojsonLayer_affiliations = L.geoJson(affiliations, {
-                    ///style: getStyle,
+                layerAffiliations = L.geoJson(affiliations, {
                     onEachFeature: traits
                 });
 
@@ -234,15 +225,10 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                 opacity: feature.properties.opacity};
     }
 
-
-    ocultarMenu=function(){
-        document.getElementById("barra").style.display='none';
-    }
-
-
-
-    mostrarMenu=function(){
-        document.getElementById("barra").style='font-size: 20px; width: 1em;';
+    function getSectorStyle(feature) {
+        return {color: feature.properties.color,
+                weight: feature.properties.weight,
+                opacity: feature.properties.opacity};
     }
 
 
@@ -256,7 +242,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             });
 
             // Insert whatever you want into the container, using whichever approach you prefer
-            container.html("<div class='map-popup' onclick='ocultarMenu()'>" +
+            container.html("<div class='map-popup'>" +
                            "<a class='profile-link' href='#'>" +
                            // "<div class='centered profile-icon' style='color: " + feature.properties["color"] + "; opacity: 0.4;'><i class='icon ion-android-walk'></i></div>" +
                            "<div class='centered'><img class='wastepickerpic' src='" + feature.properties["waste_picker-image_url"] + "'/></div>" +
@@ -295,23 +281,109 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
         var myPosition = L.icon({iconUrl:"images/myPosition.png", iconAnchor:[24,56]});
         var radius = e.accuracy / 2;
         L.marker(e.latlng,{icon: myPosition}).addTo(map);
-        L.circle(e.latlng, radius).addTo(map);
+        //L.circle(e.latlng, radius).addTo(map);
+
     }
 
     function onLocationError(e) {
         //alert(e.message);
-        alert("Localizacion no Encontrada, por favor active el GPS de su dispositivo");
+        alert("Ubicación no encontrada, por favor active el Servicio de Ubicación(GPS) de su dispositivo");
+        stopLocate();
     }
 
 
     $scope.obtenerPosicion = function(){
         console.log("Funcion Geolocalizacion");
-        map.locate({setView: true, maxZoom:15});
+        map.locate({setView: true, maxZoom:15, timeout: 5000});
         map.on('locationfound', onLocationFound);
-        map.on('locationerror', onLocationError); 
+        map.on('locationerror', onLocationError);
 
     }
     //$scope.obtenerPosicion();
 
+    $scope.openProfile = function(feature) {
+        $scope.mapNavigator.pushPage('profile.html');
+        //$scope.ons.slidingMenu.setMainPage("profile.html", {closeMenu: true});
+        $scope.currentWastePicker = feature.properties;
+    };
+
+    $scope.openAffiliation = function(feature) {
+        $scope.mapNavigator.pushPage('new.html');
+        $scope.currentAffiliation= feature.properties;
+    };
+
+    function showLayer(layer) {
+      if (!map.hasLayer(layer)) {
+        layer.addTo(map);
+      }
+    };
+
+    function hideLayer(layer) {
+      if (map.hasLayer(layer)) {
+        map.removeLayer(layer);
+      }
+    };
+
+    function showLayerSectionsOrRoutes() {
+      if (map.getZoom() >= 15 ) {
+        hideLayer(layerSectors);
+        showLayer(layerRoutes);
+        // Info popup
+        showMapAlert();
+      } else {
+        hideLayer(layerRoutes);
+        showLayer(layerSectors);
+      }
+    };
+
+    function hideLayerSectionsOrRoutes() {
+      hideLayer(layerSectors);
+      hideLayer(layerRoutes);
+    };
+
+    function showMapAlert() {
+      var mapAlertExecuted = localStorage.getItem('mapAlertExecuted');
+      if (mapAlertExecuted == null) {
+          localStorage.setItem('mapAlertExecuted', 'Y');
+          popup = L.popup()
+              .setLatLng(map.getCenter())
+              .setContent("Haz un tab sobre cada línea para</br>conocer a <strong>l@s reciclador@s<strong>")
+              .openOn(map);
+      }
+    };
+
+
+    showHideLayers = function(event) {
+        if(event.target.id == "layerWastePickers") {
+            if(event.target.checked) {
+              localStorage.setItem("showLayerSectionsOrRoutes","true");
+              showLayerSectionsOrRoutes();
+
+            } else {
+              localStorage.setItem("showLayerSectionsOrRoutes","false");
+              hideLayerSectionsOrRoutes();
+            }
+        }
+        else if(event.target.id == "layerBusiness") {
+            if(event.target.checked) {
+                layerBusiness.addTo(map);
+                localStorage.setItem("estado_bussines","activo");
+            }
+            else {
+                map.removeLayer(layerBusiness);
+                localStorage.removeItem("estado_bussines");
+            }
+        }
+        else if(event.target.id == "layerAffiliations") {
+            if(event.target.checked) {
+                layerAffiliations.addTo(map);
+                localStorage.setItem("estado_affiliations","elegido");
+            }
+            else {
+                map.removeLayer(layerAffiliations);
+                localStorage.removeItem("estado_affiliations");
+            }
+        }
+    }
 
 });
