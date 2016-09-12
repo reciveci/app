@@ -48,7 +48,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             layerSectors = L.geoJson(sector,
                                      {
                                         style: getSectorStyle,
-                                        onEachFeature: onEachFeature
+                                        onEachFeature: onEachFeatureSectors
                                     });
 
             localStorage.setItem("showLayerSectionsOrRoutes","true");
@@ -62,7 +62,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                   layerSectors = L.geoJson(sectors,
                                            {
                                             style: getSectorStyle,
-                                            onEachFeature: onEachFeature
+                                            onEachFeature: onEachFeatureSectors
                                            });
 
                   localStorage.setItem("showLayerSectionsOrRoutes","true");
@@ -231,10 +231,30 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                 opacity: feature.properties.opacity};
     }
 
+  /* Funcion para el zoom en cada sector */
+    function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+    console.log("zoom");
+    }
+
+    function onEachFeatureSectors(feature, layer) {
+        console.log(layer);
+
+        layer.on({
+        click: zoomToFeature
+        });
+    }
+
 
     function onEachFeature(feature, layer) {
         //console.log(layer);
+
+        /*layer.on({
+        click: zoomToFeature
+        });*/
+
         if (feature.properties && feature.properties.schedule) {
+            
             var container = $('<div />');
             // Delegate all event handling for the container itself and its contents to the container
             container.on('click', '.profile-link', function() {
