@@ -345,7 +345,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
     };
 
     function showLayerSectionsOrRoutes() {
-      if (map.getZoom() >= 15 ) {
+      if (map.getZoom() >= 14 ) {
         hideLayer(layerSectors);
         showLayer(layerRoutes);
         // Info popup
