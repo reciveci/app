@@ -38,14 +38,15 @@
             <ons-col>
               <div class="news-title">
                 {{sub.nombre}}
-
-              </div>
+             </div>
 
               <div class="news-date">{{sub.sector}}</div>
+              
 
             </ons-col>
             <ons-col width="20px"></ons-col>
             </ons-row>
+
           </ons-list-item>
 
         </ons-list-item>
@@ -74,6 +75,7 @@
         <div class="affiliations-content">{{currentNew.direccion}}</div>
         <div class="affiliations-content" ng-click="openDialer(currentNew.telefono)"><span class="affiliation affiliation-phone">{{currentNew.telefono}}</span></div>
         <div class="affiliations-content"ng-click="sendEmail(currentNew.email)"><span class="affiliation affiliation-email">{{currentNew.email}}</span></div>
+        <div class="affiliations-content" ng-click="goToMap(currentNew.latitud,currentNew.longitud,currentNew.nombre,currentNew.direccion)"><span class="affiliation affiliation-email">Ver en el mapa</span> <ons-icon icon="ion-location" style="font-size: 20px;"></ons-icon></div>
       </div>
     </ons-page>
   </ons-template>

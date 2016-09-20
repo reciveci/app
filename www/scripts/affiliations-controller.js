@@ -97,7 +97,10 @@ myApp.controller('AffiliationsController',function ($scope ,$affiliations , $tim
             window.open('mailto: ' + email, '_system');
         };
 
-
+   $scope.goToMap=function goToMap(sub,sub1,sub2,sub3){
+       $scope.affiliationNavigator.pushPage('affiliationsMap.html',{ param1: sub, param2: sub1,param3:sub2,param4:sub3});
+       
+      };
     
 
 

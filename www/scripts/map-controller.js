@@ -128,7 +128,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
 
 
-            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[24,70]});
+            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[30,80]});
 
             layerBusiness = L.geoJson(business,{
                 onEachFeature: traits
@@ -247,12 +247,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
 
     function onEachFeature(feature, layer) {
-        //console.log(layer);
-
-        /*layer.on({
-        click: zoomToFeature
-        });*/
-
+        
         if (feature.properties && feature.properties.schedule) {
             
             var container = $('<div />');
@@ -405,5 +400,13 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             }
         }
     }
+
+    
+   
+   
+
+    
+
+    
 
 });
