@@ -113,52 +113,53 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
         ///////////
         // Business
         ///////////
-        var BUSINESS_JSON='http://'+$properties.ip+':'+$properties.port+'/map/business.json';
-        $.getJSON(BUSINESS_JSON, function(business) {
-            var businessData = JSON.stringify(business);
-            localStorage.setItem('businessData', businessData);
-            // console.log(bussinesData);
-            console.log(business);
-
-            function traits (feature,layer) {
-                layer.bindPopup("<div class=map-poup>"+feature.properties["name"]+"</div>"+"<div class=map-content-popup>"+feature.properties["address"]+"</div>");
-                layer.setIcon(imagen);
-            };
-
-
-
-            var imagen = new L.icon({iconUrl:"images/pin_business.png", iconAnchor:[30,80]});
-
-            layerBusiness = L.geoJson(business,{
-                onEachFeature: traits
-            });
-
-
-
-
-            if(localStorage.estado_bussines=="activo"){
-
-                layerBusiness.addTo(map);
-
-                document.getElementById("layerBusiness").checked=true;
-
-            }
-
-        }).fail(function() {
-            // Retrieve data from cache
-            var business = JSON.parse(localStorage.getItem('businessData'));
-
-            if (business!= null) {
-                layerBusiness = L.geoJson(business,{
-                    onEachFeature: traits
-                });
-                layerBusiness.addTo(map);
-                $("#layerBusiness").prop('checked',true);
-
-            } else {
-                console.log(error);
-            }
-        });
+        // //Comentado hasta que se requira la funcionalidad de negocios
+        // var BUSINESS_JSON='http://'+$properties.ip+':'+$properties.port+'/map/business.json';
+        // $.getJSON(BUSINESS_JSON, function(business) {
+        //     var businessData = JSON.stringify(business);
+        //     localStorage.setItem('businessData', businessData);
+        //     // console.log(bussinesData);
+        //     console.log(business);
+        //
+        //     function traits (feature,layer) {
+        //         layer.bindPopup("<div class=map-poup>"+feature.properties["name"]+"</div>"+"<div class=map-content-popup>"+feature.properties["address"]+"</div>");
+        //         layer.setIcon(imagen);
+        //     };
+        //
+        //
+        //
+        //     var imagen = new L.icon({iconUrl:"images/pin_business.png", iconAnchor:[30,80]});
+        //
+        //     layerBusiness = L.geoJson(business,{
+        //         onEachFeature: traits
+        //     });
+        //
+        //
+        //
+        //
+        //     if(localStorage.estado_bussines=="activo"){
+        //
+        //         layerBusiness.addTo(map);
+        //
+        //         document.getElementById("layerBusiness").checked=true;
+        //
+        //     }
+        //
+        // }).fail(function() {
+        //     // Retrieve data from cache
+        //     var business = JSON.parse(localStorage.getItem('businessData'));
+        //
+        //     if (business!= null) {
+        //         layerBusiness = L.geoJson(business,{
+        //             onEachFeature: traits
+        //         });
+        //         layerBusiness.addTo(map);
+        //         $("#layerBusiness").prop('checked',true);
+        //
+        //     } else {
+        //         console.log(error);
+        //     }
+        // });
 
 
         var AFFILIATIONS_JSON='http://'+$properties.ip+':'+$properties.port+'/map/affiliations.json';
@@ -230,15 +231,12 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                 opacity: feature.properties.opacity};
     }
 
-  /* Funcion para el zoom en cada sector */
+    /* Funcion para el zoom en cada sector */
     function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-    console.log("zoom");
+      map.fitBounds(e.target.getBounds());
     }
 
     function onEachFeatureSectors(feature, layer) {
-        console.log(layer);
-
         layer.on({
         click: zoomToFeature
         });
@@ -378,16 +376,16 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
               hideLayerSectionsOrRoutes();
             }
         }
-        else if(event.target.id == "layerBusiness") {
-            if(event.target.checked) {
-                layerBusiness.addTo(map);
-                localStorage.setItem("estado_bussines","activo");
-            }
-            else {
-                map.removeLayer(layerBusiness);
-                localStorage.removeItem("estado_bussines");
-            }
-        }
+        // else if(event.target.id == "layerBusiness") {
+        //     if(event.target.checked) {
+        //         layerBusiness.addTo(map);
+        //         localStorage.setItem("estado_bussines","activo");
+        //     }
+        //     else {
+        //         map.removeLayer(layerBusiness);
+        //         localStorage.removeItem("estado_bussines");
+        //     }
+        // }
         else if(event.target.id == "layerAffiliations") {
             if(event.target.checked) {
                 layerAffiliations.addTo(map);
@@ -399,13 +397,5 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             }
         }
     }
-
-
-
-
-
-
-
-
 
 });
