@@ -377,9 +377,10 @@ font-size: 10px;
   }
 
 
-:checked + .tab-bar__button > .tab-bar__icon {
-  color: #1f9cd9;
+:checked + .tab-bar__button > .tab-bar__icon, :checked + .tab-bar__button > .tab-icon {
+  color: #1F9CD9;
 }
+
 
 .sectionbar {
   background-color: #e2f0e3;

@@ -11,7 +11,6 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
     var loadMap = function() {
 
-        // map = L.map('map').setView([-0.1992984567438711, -78.48349571228026], 13);
         map = L.map('map').setView([-0.1971527023738858, -78.49267959594727], 13);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamExOTc5IiwiYSI6ImNpazcyZHFtcjAxOGJ2ZGt0NGNhamQ1cXQifQ.Kkz4bJY_fOE6PM9YaWzJIg',
@@ -128,7 +127,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
 
 
-            var imagen = new L.icon({iconUrl:"images/logo_reciveci_pin.png", iconAnchor:[30,80]});
+            var imagen = new L.icon({iconUrl:"images/pin_business.png", iconAnchor:[30,80]});
 
             layerBusiness = L.geoJson(business,{
                 onEachFeature: traits
@@ -186,7 +185,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                 //console.log(feature.geometry.coordinates);
             };
 
-            var imagen = new L.icon({iconUrl:"images/acopio3.png", iconAnchor:[24,56]});
+            var imagen = new L.icon({iconUrl:"images/pin_affiliation.png", iconAnchor:[24,56]});
 
             layerAffiliations = L.geoJson(affiliations,{
                 onEachFeature: traits
@@ -247,9 +246,9 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
 
 
     function onEachFeature(feature, layer) {
-        
+
         if (feature.properties && feature.properties.schedule) {
-            
+
             var container = $('<div />');
             // Delegate all event handling for the container itself and its contents to the container
             container.on('click', '.profile-link', function() {
@@ -401,12 +400,12 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
         }
     }
 
-    
-   
-   
 
-    
 
-    
+
+
+
+
+
 
 });
