@@ -252,9 +252,37 @@ ons-carousel-item {
   padding-top: 60px;
 }
 
+.logo-login {
+  max-width: 150px;
+  width: 50%;
+  height: auto;
+  padding-top: 60px;
+}
 
 
+.index-buttons{
+    position: relative;
+    display: inline-block;  
+}
 .start-button {
+  background-color: #1f9cd9; /*ReciVeci color*/
+  font-size: 28px;
+  font-family:'ArialRounded', sans-serif;
+  letter-spacing: 1.5px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 35px;
+}
+.signin-button {
+  background-color: #1f9cd9; /*ReciVeci color*/
+  font-size: 28px;
+  font-family:'ArialRounded', sans-serif;
+  letter-spacing: 1.5px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 35px;
+}
+.signup-button {
   background-color: #1f9cd9; /*ReciVeci color*/
   font-size: 28px;
   font-family:'ArialRounded', sans-serif;
@@ -773,7 +801,6 @@ border-radius: 6px;
   /*width: 100%;*/
   /*max-width: 100%;*/
 }
-
 .subcat-instructions-icon {
   color: #d38312;
 }

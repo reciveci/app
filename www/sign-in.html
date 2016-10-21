@@ -1,0 +1,34 @@
+<div ng-controller="signInCtrl">
+    <ons-page modifier="full_bg">
+        <ons-toolbar> 
+            <div class="center">Login</div>
+            <div class="left">
+                <p>
+                    <ons-icon ng-click="previewPage()" icon="ion-arrow-left-c">
+                    </ons-icon> 
+                </p>
+
+            </div>
+        </ons-toolbar>
+
+        <div class="centered">
+            <img class="logo-login" src="images/logo_reciveci_medium.png"/>
+        </div>
+<!--
+        <div id="error">
+            {{error}}
+        </div>
+-->
+        <div style="text-align: center; margin-top: 30px;">    
+            <form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+                <input type="email" name="email" ng-model="loginForm.email" required="required" class="text-input--underbar" placeholder="Email" value="">
+
+                <input type="password" name="password" ng-model="loginForm.password" required="required" class="text-input--underbar" placeholder="Password" value="">
+                <br>
+                <br>
+                <button type="submit" class="button login-button">Log in</button>
+            </form>
+            <p>No tienes una cuenta?<a onclick="myNavigator.resetToPage('sign-up.html')" href="">Registrate</a></p>    
+        </div>
+    </ons-page>
+</div>

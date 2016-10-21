@@ -1,263 +1,288 @@
 <!DOCTYPE html>
 <!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
 <html lang="es_LA" ng-app="myApp" ng-csp>
-<head>
-    <meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8" />
 
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- JS dependencies (order matters!) -->
+        <!-- JS dependencies (order matters!) -->
 
-    <script src="scripts/platformOverrides.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/onsen/js/onsenui.js"></script>
-    <script src="lib/angular/angular-timeago.js"></script>
-    <script src="lib/angular/angular-resource.js"></script>
-    <script src="lib/angular/angular-sanitize.min.js"></script>
-
-
-
-
-    <!-- CSS dependencies -->
-    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
-    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-blue-basic-theme.css" />
-
-    <!-- CSP support mode (required for Windows Universal apps) -->
-    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+        <script src="scripts/platformOverrides.js"></script>   
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/onsen/js/onsenui.js"></script>
+        <script src="lib/angular/angular-timeago.js"></script>
+        <script src="lib/angular/angular-resource.js"></script>
+        <script src="lib/angular/angular-sanitize.min.js"></script>
+        <script src="lib/angular-cookie.min.js"></script>
+        <script src="lib/ng-token-auth.min.js"></script>
+        <script src="lib/angular-route.min.js"></script>
+        <script src="lib/angular/angular-resource.js"></script>
 
 
-    <!-- Map -->
-    <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
-    <script src="lib/leaflet/leaflet.js"></script>
-    <script src="lib/jquery-2.1.0.min.js"></script>
+        <!-- CSS dependencies -->
+        <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+        <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-blue-basic-theme.css" />
 
-    <!-- Image cache -->
-    <script src="lib/imagesloaded.pkgd.min.js"></script>
-    <script src="lib/imgcache.js"></script>
-
-    <!-- Custom style -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- --------------- App init --------------- -->
-
-    <title>ReciVeci</title>
-    <script src="lib/ng-special-offer.js"></script>
-    <script src="lib/ngStorage.min.js"></script>
-
-    <script>
-        var myApp = angular.module('myApp', ['onsen','ngResource','yaru22.angular-timeago','ngSanitize','ngSpecialOffer','ngStorage']);
-
-        var launchTour = function() {
-          var tourExecuted = localStorage.getItem('tourExecuted');
-          // console.log("tourExecuted: " + tourExecuted);
-          if (tourExecuted == null) {
-            carousel.next();
-            localStorage.setItem('tourExecuted', 'Y');
-          }
-        }
-
-    </script>
-
-    <!-- Filters -->
-    <script src="scripts/age-filter.js"></script>
+        <!-- CSP support mode (required for Windows Universal apps) -->
+        <link rel="stylesheet" href="lib/angular/angular-csp.css" />
 
 
+        <!-- Map -->
+        <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+        <script src="lib/leaflet/leaflet.js"></script>
+        <script src="lib/jquery-2.1.0.min.js"></script>
 
+        <!-- Image cache -->
+        <script src="lib/imagesloaded.pkgd.min.js"></script>
+        <script src="lib/imgcache.js"></script>
 
-    <!--Services -->
-    <script src="scripts/affiliations-service.js"></script>
-    <script src="scripts/news-service.js"></script>
-    <script src="scripts/recycling-service.js"></script>
-    <script src="scripts/rates-service.js"></script>
-    <script src="scripts/file-properties.js"></script>
+        <!-- Custom style -->
+        <link rel="stylesheet" href="css/style.css">
 
+        <!-- --------------- App init --------------- -->
 
-    <!--Controllers -->
-    <script src="scripts/affiliations-controller.js"></script>
-    <script src="scripts/main-controller.js"></script>
-    <script src="scripts/map-controller.js"></script>
-    <script src="scripts/news-controller.js"></script>
-    <script src="scripts/recycling-controller.js"></script>
-    <script src="scripts/rates-controller.js"></script>
-    <script src="scripts/affiliationsMap-controller.js"></script>
+        <title>ReciVeci</title>
+        <script src="lib/ng-special-offer.js"></script>
+        <script src="lib/ngStorage.min.js"></script>
 
-    <!--Controllers -->
-    <script src="scripts/directive-news.js"></script>
-    <script>
-       var startTest = function() {
-           /* Note: this is using version 2.x of the imagesloaded library, use of current version might differ */
-           $('body').imagesLoaded(function($images, $proper, $broken ) {
-               // see console output for debug info
-               ImgCache.options.debug = true;
-               ImgCache.options.usePersistentCache = true;
-               ImgCache.init(function() {
-                   // 1. cache images
-                   for (var i = 0; i < $proper.length; i++) {
-                       ImgCache.cacheFile($($proper[i]).attr('src'));
-                   }
-                   // 2. broken images get replaced
-                   for (var i = 0; i < $broken.length; i++) {
-                       ImgCache.useCachedFile($($broken[i]));
-                   }
-               });
-           });
-       };
-       if (typeof(cordova) !== 'undefined') {
-           // cordova test
-           document.addEventListener('deviceready', startTest, false);
-           document.addEventListener('deviceready', launchTour, false);
-       } else {
-           // normal browser test
-           $(document).ready(startTest);
-           $(document).ready(launchTour);
-       }
+        <script>
+            var myApp = angular.module('myApp', ['onsen','ngResource','yaru22.angular-timeago','ngSanitize','ngSpecialOffer','ngStorage','ng-token-auth','ngRoute'])
 
+            .config(function($authProvider) {
+                $authProvider.configure({
+                    apiUrl: 'http://localhost:5000/api/v1',
+                    confirmationSuccessUrl: 'http://localhost:5000/confirmation-email'
+                })
+            })
 
-   </script>
+            var launchTour = function() {
+                var tourExecuted = localStorage.getItem('tourExecuted');
+                // console.log("tourExecuted: " + tourExecuted);
+                if (tourExecuted == null) {
+                    carousel.next();
+                    localStorage.setItem('tourExecuted', 'Y');
+                }
+            }
+
+        </script>
+
+        <!-- Filters -->
+        <script src="scripts/age-filter.js"></script>
 
 
 
-</head>
 
-<body>
-    <!-- Cordova reference -->
-    <script src="scripts/index.js"></script>
-
-
-    <!--
-      Comment this line to prevent script message on browser development machine.
-      Uncomment before genering platform installer
-    -->
-      <script src="cordova.js"></script>
-    
+        <!--Services -->
+        <script src="scripts/affiliations-service.js"></script>
+        <script src="scripts/news-service.js"></script>
+        <script src="scripts/recycling-service.js"></script>
+        <script src="scripts/rates-service.js"></script>
+        <script src="scripts/file-properties.js"></script>
 
 
+        <!--Controllers -->
+        <script src="scripts/affiliations-controller.js"></script>
+        <script src="scripts/main-controller.js"></script>
+        <script src="scripts/map-controller.js"></script>
+        <script src="scripts/news-controller.js"></script>
+        <script src="scripts/recycling-controller.js"></script>
+        <script src="scripts/rates-controller.js"></script>
+        <script src="scripts/affiliationsMap-controller.js"></script>
+        <script src="scripts/sign-in-controller.js"></script>
+        <script src="scripts/sign-up-controller.js"></script>
 
-    <ons-navigator var="myNavigator">
-        <ons-page modifier="full_bg">
-
-            <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
-
-                <ons-carousel-item>
-                    <div class="centered">
-                        <img class="logo" src="images/logo_reciveci_medium.png" onclick="myNavigator.resetToPage('main.html')"/>
-                    </div>
-
-                    <ons-button onclick="myNavigator.resetToPage('main.html')" class="start-button">
-                      <ons-icon icon="ion-android-hand"></ons-icon>
-                      Súmate
-                    </ons-button>
-
-                    <ons-button onclick="carousel.next()" class="tour-button bottom-right color-orange">
-                        Tour
-                        <ons-icon icon="ion-arrow-right-c"></ons-icon>
-                    </ons-button>
-
-                </ons-carousel-item>
-
-                <ons-carousel-item style="background-color: #1f9cd9;">
-                    <div class="tour-background">
-                        <ons-button onclick="carousel.prev()" class="tour-button bottom-left" ng-hide="hideBack">
-                            <ons-icon icon="ion-arrow-left-c"></ons-icon>
-                        </ons-button>
-                        <ons-button onclick="carousel.next()" class="tour-button bottom-right">
-                            <ons-icon icon="ion-arrow-right-c"></ons-icon>
-                        </ons-button>
-                    </div>
-                    <div class="tour-item-title">¿Qué es ReciVeci?</div>
-                    <div class="tour-item-logo">
-                        <img src="images/logo_reciveci_medium.png" class="tour-item-logo-img"/>
-                    </div>
-                    <div class="tour-item-text">
-                        <strong>ReciVeci</strong> es una iniciativa ciudadana enfocada en incrementar y potenciar la labor de los <strong>recicladores de base</strong> mediante la creación de un vínculo humano entre el reciclador(a) y el <strong>ciudadano(a).</strong>
-                    </div>
-                </ons-carousel-item>
-
-                <!-- Separa -->
-                <ons-carousel-item style="background-color: #00b33c;">
-                    <div class="tour-background">
-                        <ons-button onclick="carousel.prev()" class="tour-button bottom-left">
-                            <ons-icon icon="ion-arrow-left-c"></ons-icon>
-                        </ons-button>
-                        <ons-button onclick="carousel.next()" class="tour-button bottom-right">
-                            <ons-icon icon="ion-arrow-right-c"></ons-icon>
-                        </ons-button>
-                    </div>
-                    <div class="tour-item-title">
-                        <ons-icon icon="ion-android-hand"></ons-icon>
-                        Separa
-                    </div>
-                    <div class="tour-image">
-                        <img src="images/categories.png" class="tour-image-img"/>
-                    </div>
-                    <div class="tour-item-text">
-                        Conoce cuáles desperdicios son materiales <strong>reciclables</strong> y cuales no lo son. Encontrarás ejemplos de cada uno de estos.
-                    </div>
-                </ons-carousel-item>
+        <!--Controllers -->
+        <script src="scripts/directive-news.js"></script>
+        <script>
+            var startTest = function() {
+                /* Note: this is using version 2.x of the imagesloaded library, use of current version might differ */
+                $('body').imagesLoaded(function($images, $proper, $broken ) {
+                    // see console output for debug info
+                    ImgCache.options.debug = true;
+                    ImgCache.options.usePersistentCache = true;
+                    ImgCache.init(function() {
+                        // 1. cache images
+                        for (var i = 0; i < $proper.length ; i++) {
+                            ImgCache.cacheFile($($proper[i]).attr('src'));
+                        }
+                        // 2. broken images get replaced
+                        for (var i = 0; i < $broken.length; i++) {
+                            ImgCache.useCachedFile($($broken[i]));
+                        }
+                    });
+                });
+            };
+            if (typeof(cordova) !== 'undefined') {
+                // cordova test
+                document.addEventListener('deviceready', startTest, false);
+                document.addEventListener('deviceready', launchTour, false);
+            } else {
+                // normal browser test
+                $(document).ready(startTest);
+                $(document).ready(launchTour);
+            }
 
 
-                <!-- Entrega -->
-                <ons-carousel-item style="background-color: #ff66b3;">
-                    <div class="tour-background">
-                        <ons-button onclick="carousel.prev()" class="tour-button bottom-left">
-                            <ons-icon icon="ion-arrow-left-c"></ons-icon>
-                        </ons-button>
-                        <ons-button onclick="carousel.next()" class="tour-button bottom-right">
-                            <ons-icon icon="ion-arrow-right-c"></ons-icon>
-                        </ons-button>
-                    </div>
-                    <div class="tour-item-title">
-                        <ons-icon icon="ion-android-pin"></ons-icon>
-                        Entrega
-                    </div>
-                    <div class="tour-image">
-                        <img src="images/map.png" class="tour-image-img"/>
-                    </div>
-                    <div class="tour-item-text">
-                        El material reciclable separado lo podrás entregar a tu <strong>reciclador de base</strong>. En este mapa podrás identificarlo y conocer el horario de recolección.
-                    </div>
-                </ons-carousel-item>
+        </script>
 
 
-                <!-- Comparte -->
-                <ons-carousel-item style="background-color: #ffb31a;">
-                    <div class="tour-background">
-                        <ons-button onclick="carousel.prev()" class="tour-button bottom-left">
-                            <ons-icon icon="ion-arrow-left-c"></ons-icon>
-                        </ons-button>
-                    </div>
-                    <div class="tour-item-title">
-                        <div>
-                            <ons-icon icon="ion-chatbubbles"></ons-icon>
-                            Comparte
+
+    </head>
+
+    <body>
+        <!-- Cordova reference -->
+        <script src="scripts/index.js"></script>
+
+
+        <!--
+Comment this line to prevent script message on browser development machine.
+Uncomment before genering platform installer
+-->
+        <script src="cordova.js"></script>
+
+
+
+
+        <ons-navigator var="myNavigator">
+            <ons-page modifier="full_bg">
+
+                <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
+
+                    <ons-carousel-item>
+                        <div class="centered">
+                            <img class="logo" src="images/logo_reciveci_medium.png" onclick="myNavigator.resetToPage('main.html')"/>
                         </div>
 
-                        <ons-button onclick="myNavigator.resetToPage('main.html')" class="tour-button bottom-right">
-                            <ons-icon icon="ion-android-hand"></ons-icon>
-                            Súmate
+                        <div class="index-buttons">
+                            <ons-button onclick="myNavigator.resetToPage('main.html')" class="start-button">
+                                <ons-icon icon="ion-android-hand"></ons-icon>
+                                Súmate
+                            </ons-button>
+
+                            <ons-button onclick="myNavigator.resetToPage('sign-in.html')" class="signin-button">
+                                <ons-icon icon="ion-locked"></ons-icon>
+                                Login                           
+                            </ons-button>
+
+                            <ons-button onclick="myNavigator.resetToPage('sign-up.html')" class="signup-button">
+                                <ons-icon icon="ion-locked"></ons-icon>
+                                Regístrate                           
+                            </ons-button>
+
+                        </div>
+
+
+                        <ons-button onclick="carousel.next()" class="tour-button bottom-right color-orange">
+                            Tour
+                            <ons-icon icon="ion-arrow-right-c"></ons-icon>
                         </ons-button>
-                    </div>
-                    <div class="tour-image">
-                        <img src="images/social-icon.png" class="tour-image-img"/>
-                    </div>
-                    <div class="tour-item-text">
-                        Finalmente, podrás <strong>compartir</strong> la alegría de ser parte de esta inicitiva mediante las redes sociales y los otros canales de comunicación. Tus comentarios y sugerencias son bienvenidos.
-                    </div>
-                </ons-carousel-item>
-            </ons-carousel>
+
+                    </ons-carousel-item>
+
+                    <ons-carousel-item style="background-color: #1f9cd9;">
+                        <div class="tour-background">
+                            <ons-button onclick="carousel.prev()" class="tour-button bottom-left" ng-hide="hideBack">
+                                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+                            </ons-button>
+                            <ons-button onclick="carousel.next()" class="tour-button bottom-right">
+                                <ons-icon icon="ion-arrow-right-c"></ons-icon>
+                            </ons-button>
+                        </div>
+                        <div class="tour-item-title">¿Qué es ReciVeci?</div>
+                        <div class="tour-item-logo">
+                            <img src="images/logo_reciveci_medium.png" class="tour-item-logo-img"/>
+                        </div>
+                        <div class="tour-item-text">
+                            <strong>ReciVeci</strong> es una iniciativa ciudadana enfocada en incrementar y potenciar la labor de los <strong>recicladores de base</strong> mediante la creación de un vínculo humano entre el reciclador(a) y el <strong>ciudadano(a).</strong>
+                        </div>
+                    </ons-carousel-item>
+
+                    <!-- Separa -->
+                    <ons-carousel-item style="background-color: #00b33c;">
+                        <div class="tour-background">
+                            <ons-button onclick="carousel.prev()" class="tour-button bottom-left">
+                                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+                            </ons-button>
+                            <ons-button onclick="carousel.next()" class="tour-button bottom-right">
+                                <ons-icon icon="ion-arrow-right-c"></ons-icon>
+                            </ons-button>
+                        </div>
+                        <div class="tour-item-title">
+                            <ons-icon icon="ion-android-hand"></ons-icon>
+                            Separa
+                        </div>
+                        <div class="tour-image">
+                            <img src="images/categories.png" class="tour-image-img"/>
+                        </div>
+                        <div class="tour-item-text">
+                            Conoce cuáles desperdicios son materiales <strong>reciclables</strong> y cuales no lo son. Encontrarás ejemplos de cada uno de estos.
+                        </div>
+                    </ons-carousel-item>
 
 
-            <!-- <div class="centered">
-                <img class="logo" src="images/logo_reciveci_medium.png"/>
-            </div>
-            <div>
-                <ons-button modifier="large--cta" onclick="myNavigator.resetToPage('main.html')" class="startbutton">Súmate</ons-button>
-            </div> -->
-        </ons-page>
-    </ons-navigator>
+                    <!-- Entrega -->
+                    <ons-carousel-item style="background-color: #ff66b3;">
+                        <div class="tour-background">
+                            <ons-button onclick="carousel.prev()" class="tour-button bottom-left">
+                                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+                            </ons-button>
+                            <ons-button onclick="carousel.next()" class="tour-button bottom-right">
+                                <ons-icon icon="ion-arrow-right-c"></ons-icon>
+                            </ons-button>
+                        </div>
+                        <div class="tour-item-title">
+                            <ons-icon icon="ion-android-pin"></ons-icon>
+                            Entrega
+                        </div>
+                        <div class="tour-image">
+                            <img src="images/map.png" class="tour-image-img"/>
+                        </div>
+                        <div class="tour-item-text">
+                            El material reciclable separado lo podrás entregar a tu <strong>reciclador de base</strong>. En este mapa podrás identificarlo y conocer el horario de recolección.
+                        </div>
+                    </ons-carousel-item>
 
 
-</body>
+                    <!-- Comparte -->
+                    <ons-carousel-item style="background-color: #ffb31a;">
+                        <div class="tour-background">
+                            <ons-button onclick="carousel.prev()" class="tour-button bottom-left">
+                                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+                            </ons-button>
+                        </div>
+                        <div class="tour-item-title">
+                            <div>
+                                <ons-icon icon="ion-chatbubbles"></ons-icon>
+                                Comparte
+                            </div>
+
+                            <ons-button onclick="myNavigator.resetToPage('main.html')" class="tour-button bottom-right">
+                                <ons-icon icon="ion-android-hand"></ons-icon>
+                                Súmate
+                            </ons-button>
+                        </div>
+                        <div class="tour-image">
+                            <img src="images/social-icon.png" class="tour-image-img"/>
+                        </div>
+                        <div class="tour-item-text">
+                            Finalmente, podrás <strong>compartir</strong> la alegría de ser parte de esta inicitiva mediante las redes sociales y los otros canales de comunicación. Tus comentarios y sugerencias son bienvenidos.
+                        </div>
+                    </ons-carousel-item>
+                </ons-carousel>
+
+
+                <!-- <div class="centered">
+<img class="logo" src="images/logo_reciveci_medium.png"/>
+</div>
+<div>
+<ons-button modifier="large--cta" onclick="myNavigator.resetToPage('main.html')" class="startbutton">Súmate</ons-button>
+</div> -->
+            </ons-page>
+        </ons-navigator>
+
+
+    </body>
 </html>
