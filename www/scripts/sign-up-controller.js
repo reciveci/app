@@ -19,7 +19,7 @@ myApp.controller('signUpCtrl', function($scope, $auth) {
         };
 
         ons.notification.alert({
-            message: 'Un Email de confirmación de la cuenta fue enviada a '+ message.email,
+            message: 'Un Email de confirmación fue enviado a la cuenta '+ message.email,
             title: 'Confirmación',
             buttonLabel: 'OK',
             animation: 'default', 
@@ -27,32 +27,28 @@ myApp.controller('signUpCtrl', function($scope, $auth) {
                 // Alert button is closed!
             }
         });
-        myNavigator.resetToPage("sign-in.html", options);
+        document.getElementById("signupForm").reset();
+        myNavigator.pushPage("sign-in.html", options);
     });
 
     $scope.$on('auth:registration-email-error', function(ev, reason) {
-        alert("Registration failed: " + reason.errors[0]);
-        ons.notification.alert({
-            message: ''+reason.errors[0]+'',
-            title: 'Error',
-            buttonLabel: 'OK',
-            animation: 'default', 
-            callback: function() {
-                // Alert button is closed!
-            }
-        });
+//        console.log(reason)
+        for(var i=0;i < reason.errors.full_messages.length;i++){
+            console.log(i)
+            ons.notification.alert({
+                message: ''+reason.errors.full_messages[i]+'',
+                title: 'Error',
+                buttonLabel: 'OK',
+                animation: 'default', 
+                callback: function() {
+                    // Alert button is closed!
+                }
+            })            
+        }
     });
 
     $scope.$on('auth:email-confirmation-success', function(ev, user) {
         alert("Welcome, "+user.email+". Your account has been verified.");
     });
-
-    $scope.previewPage = function(){
-        var options = {
-            animation: 'slide',
-            onTransitionEnd: function(){}
-        }
-        myNavigator.resetToPage("index.html", options);
-    }
 
 });

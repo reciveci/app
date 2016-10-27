@@ -18,6 +18,7 @@
     <icon src="icon.png" />
     <platform name="android">
         <preference name="orientation" value="portrait" />
+        <access origin="*" />
     </platform>
     <platform name="ios">
         <preference name="orientation" value="portrait" />

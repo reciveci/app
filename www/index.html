@@ -53,8 +53,8 @@
 
             .config(function($authProvider) {
                 $authProvider.configure({
-                    apiUrl: 'http://localhost:5000/api/v1',
-                    confirmationSuccessUrl: 'http://localhost:5000/confirmation-email'
+                    apiUrl: 'http://192.168.1.9:5000/api/v1',
+                    confirmationSuccessUrl: 'http://192.168.1.9:5000/confirmation-email'
                 })
             })
 
@@ -148,7 +148,6 @@ Uncomment before genering platform installer
 
         <ons-navigator var="myNavigator">
             <ons-page modifier="full_bg">
-
                 <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
 
                     <ons-carousel-item>
@@ -162,12 +161,12 @@ Uncomment before genering platform installer
                                 Súmate
                             </ons-button>
 
-                            <ons-button onclick="myNavigator.resetToPage('sign-in.html')" class="signin-button">
+                            <ons-button onclick="myNavigator.pushPage('sign-in.html')" class="signin-button">
                                 <ons-icon icon="ion-locked"></ons-icon>
                                 Login                           
                             </ons-button>
 
-                            <ons-button onclick="myNavigator.resetToPage('sign-up.html')" class="signup-button">
+                            <ons-button onclick="myNavigator.pushPage('sign-up.html')" class="signup-button">
                                 <ons-icon icon="ion-locked"></ons-icon>
                                 Regístrate                           
                             </ons-button>
@@ -281,6 +280,73 @@ Uncomment before genering platform installer
 <ons-button modifier="large--cta" onclick="myNavigator.resetToPage('main.html')" class="startbutton">Súmate</ons-button>
 </div> -->
             </ons-page>
+
+            <!--            login-->
+            <ons-template id="sign-in.html">
+                <ons-page modifier="full_bg" id="sign-in" ng-controller="signInCtrl">
+                    <ons-toolbar>
+                        <div class="left">
+                            <ons-back-button>
+                                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+                            </ons-back-button>
+                        </div>
+                        <div class="center">Login</div>
+                    </ons-toolbar> 
+                    <div class="centered">
+                        <img class="logo-login" src="images/logo_reciveci_medium.png"/>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">    
+                        <form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+                            <input type="email" name="email" ng-model="loginForm.email" required="required" class="text-input--underbar" placeholder="Email" value="">
+
+                            <input type="password" name="password" ng-model="loginForm.password" required="required" class="text-input--underbar" placeholder="Password" value="">
+                            <br>
+                            <br>
+                            <button type="submit" class="button login-button">Log in</button>
+                        </form>
+                        <p>No tienes una cuenta?<a onclick="myNavigator.pushPage('sign-up.html')" href="">Registrate</a></p> 
+                    </div>                            
+                </ons-page>
+            </ons-template>
+            <!--            fin login-->
+
+            <!--            sign-up-->
+            <ons-template id="sign-up.html">
+                <ons-page modifier="full_bg" id="sign-up" ng-controller="signUpCtrl">
+                    <ons-toolbar>
+                        <div class="left">
+                            <ons-back-button>
+                                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+                            </ons-back-button>
+                        </div>
+                        <div class="center">Registro</div>
+                    </ons-toolbar> 
+                    <div class="centered">
+                        <img class="logo-login" src="images/logo_reciveci_medium.png"/>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">    
+                        <form id="signupForm" ng-submit="submitRegistration(registrationForm)" role="form" ng-init="registrationForm = {}">
+                            <div class="form-group">
+                                <input type="email" name="email" ng-model="registrationForm.email" required="required" class="text-input--underbar" placeholder="Email"/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="password" ng-model="registrationForm.password" required="required" class="text-input--underbar" placeholder="Contraseña"/>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="password_confirmation" ng-model="registrationForm.password_confirmation" required="required" class="text-input--underbar" placeholder="Confirmacion Contraseña"/>
+                            </div>
+                            <br>
+                            <br>
+                            <button type="submit" class="button login-button">Registrar</button>
+                        </form>
+                        <p>Tienes una cuenta?<a onclick="myNavigator.pushPage('sign-in.html')" href="">Login</a></p> 
+                    </div>                            
+                </ons-page>
+            </ons-template>
+            <!--            fin sign-up-->
+
         </ons-navigator>
 
 
