@@ -19,7 +19,7 @@ myApp.controller('signUpCtrl', function($scope, $auth) {
         };
 
         ons.notification.alert({
-            message: 'Un Email de confirmación fue enviado a la cuenta '+ message.email,
+            message: 'Un correo de confirmación fue enviado a la cuenta '+ message.email,
             title: 'Confirmación',
             buttonLabel: 'OK',
             animation: 'default', 
@@ -32,7 +32,7 @@ myApp.controller('signUpCtrl', function($scope, $auth) {
     });
 
     $scope.$on('auth:registration-email-error', function(ev, reason) {
-//        console.log(reason)
+        console.log(reason.errors)
         for(var i=0;i < reason.errors.full_messages.length;i++){
             console.log(i)
             ons.notification.alert({
@@ -45,6 +45,8 @@ myApp.controller('signUpCtrl', function($scope, $auth) {
                 }
             })            
         }
+        
+        
     });
 
     $scope.$on('auth:email-confirmation-success', function(ev, user) {
