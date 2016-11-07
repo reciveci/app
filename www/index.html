@@ -53,8 +53,11 @@
 
             .config(function($authProvider) {
                 $authProvider.configure({
-                    apiUrl: 'http://192.168.1.9:5000/api/v1',
-                    confirmationSuccessUrl: 'http://192.168.1.9:5000/confirmation-email'
+                    apiUrl: 'http://192.168.0.100:5000/api/v1',
+                    confirmationSuccessUrl: 'http://192.168.0.100:5000/confirmation-email',
+                    authProviderPaths: {
+                        facebook: '/auth/facebook'
+                    }
                 })
             })
 
@@ -93,6 +96,7 @@
         <script src="scripts/affiliationsMap-controller.js"></script>
         <script src="scripts/sign-in-controller.js"></script>
         <script src="scripts/sign-up-controller.js"></script>
+        <script src="scripts/facebook-login-controller.js"></script>
 
         <!--Controllers -->
         <script src="scripts/directive-news.js"></script>
@@ -171,6 +175,11 @@ Uncomment before genering platform installer
                                 Regístrate                           
                             </ons-button>
 
+                            <div ng-controller="facebookLoginCtrl">
+                                <button ng-click="authenticate('facebook')">
+                                    Sign in with Facebook
+                                </button>
+                            </div>
                         </div>
 
 
