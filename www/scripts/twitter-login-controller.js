@@ -1,6 +1,6 @@
-myApp.controller('facebookLoginCtrl', function($scope, $auth, $rootScope) {
+myApp.controller('twitterLoginCtrl', function($scope, $auth, $rootScope) {
     $scope.handleBtnClick = function() {
-        $auth.authenticate('facebook')
+        $auth.authenticate('twitter')
             .then(function(resp) {
             // handle success
         })
@@ -12,7 +12,7 @@ myApp.controller('facebookLoginCtrl', function($scope, $auth, $rootScope) {
     $scope.$on('auth:oauth-registration', function(ev, user) {
 //        alert('Registro Exitoso ' + user.email);
         ons.notification.alert({
-            message: 'Bienvenido ' + user.email,
+            message: 'Bienvenido ' + user.name,
             title: 'Registro Exitoso',
             buttonLabel: 'OK',
             animation: 'default', 
@@ -20,7 +20,6 @@ myApp.controller('facebookLoginCtrl', function($scope, $auth, $rootScope) {
                 // Alert button is closed!
             }
         });
-        console.log(user);
     });
 
     $scope.$on('auth:login-success', function(ev, user) {

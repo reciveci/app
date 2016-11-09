@@ -1,0 +1,49 @@
+<ons-page modifier="full_bg" id="sign-up" ng-controller="signUpCtrl">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>
+                <ons-icon icon="ion-arrow-left-c"></ons-icon>
+            </ons-back-button>
+        </div>
+        <div class="center">Registro</div>
+    </ons-toolbar> 
+    <div class="centered">
+        <img class="logo-login" src="images/logo_reciveci_medium.png"/>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">    
+        <form id="signupForm" ng-submit="submitRegistration(registrationForm)" role="form" ng-init="registrationForm = {}">
+            <div class="form-group">
+                <input type="email" name="email" ng-model="registrationForm.email" required="required" class="text-input--underbar" placeholder="Email"/>
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="password" ng-model="registrationForm.password" required="required" class="text-input--underbar" placeholder="Contraseña"/>
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="password_confirmation" ng-model="registrationForm.password_confirmation" required="required" class="text-input--underbar" placeholder="Confirmacion Contraseña"/>
+            </div>
+            <br>
+            <button type="submit" class="button login-button">Registrar</button>
+        </form>
+        <div class="text-login">
+            <p>O Puedes Registrarte con:</p>
+        </div>
+        <div class="socials-buttons">
+            <div ng-controller="facebookLoginCtrl">
+                <ons-button id="facebook-button" modifier="large" ng-click="authenticate('facebook')">
+                    <ons-icon icon="facebook"></ons-icon>
+                </ons-button>
+            </div>
+            <br>
+            <div ng-controller="twitterLoginCtrl">
+                <ons-button id="twitter-button" modifier="large" ng-click="authenticate('twitter')">
+                    <ons-icon icon="twitter"></ons-icon>
+                </ons-button>
+            </div>
+        </div>
+        <div class="text-login">
+            <p>Ya tienes una cuenta?<a onclick="myNavigator.replacePage('sign-in.html',{animation :'none'})" href="">Inicia Sesión</a></p> 
+        </div>
+    </div>                            
+</ons-page>
