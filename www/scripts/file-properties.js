@@ -1,7 +1,7 @@
 myApp.factory('$properties',[function(){
 
   var properties = {
-    ip:"api-reciveci.rhcloud.com",
+    ip:"api-reciveciec.rhcloud.com",
     port:"80"
  	};
 

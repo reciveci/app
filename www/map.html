@@ -1,20 +1,21 @@
 <div ng-controller="MapController">
 
-    <ons-sliding-menu main-page="page1.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" type="overlay" >
+    <ons-sliding-menu main-page="page1.html" menu-page="menu.html" side="left" max-slide-distance="200px" var="menu" type="reveal" >
         <div></div>
     </ons-sliding-menu>
 
     <ons-template id="page1.html">
         <ons-page>
-            <ons-toolbar>
+            <ons-toolbar fixed-style>
                 <div class="left">
                     <ons-toolbar-button ng-click="menu.toggleMenu()">
-                        <ons-icon icon="ion-navicon" style="font-size: 20px; width: 1em;" id="barra"> Opciones</ons-icon>
+                        <ons-icon icon="ion-navicon" id="barra"></ons-icon>
                     </ons-toolbar-button>
                 </div>
+                <div class="center fuente">Mapa ReciVeci</div>
                 <div class="right">
-                    <ons-toolbar-button ng-click="obtenerPosicion()">Mi Ubicación
-                       <ons-icon icon="ion-location" style="font-size: 20px;"></ons-icon>
+                    <ons-toolbar-button ng-click="obtenerPosicion()">
+                       <ons-icon icon="ion-location"></ons-icon>
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
@@ -28,10 +29,21 @@
 
     <ons-template id="menu.html">
         <ons-list>
-            <ons-list-item >
+          <ons-list-header>Barrios</ons-list-header>
+          <ons-list-item onclick="goToAllSectors(13)">
+            Todos
+          </ons-list-item>
+          <ons-list-item onclick="goToRepSalvador()">
+            Rep. del Salvador
+          </ons-list-item>
+          <ons-list-item onclick="goToLaFloresta()">
+            La Floresta
+          </ons-list-item>
+          <ons-list-header>Opciones</ons-list-header>
+            <!-- <ons-list-item >
                 <label for="layerWastePickers">Reciclador@s</label>
                 <input id="layerWastePickers" type="checkbox" onclick="showHideLayers(event)" checked="checked" />
-            </ons-list-item>
+            </ons-list-item> -->
             <!-- <ons-list-item>
                 <label for="layerBusiness">Negocios ReciVeci</label>
                 <input id="layerBusiness" type="checkbox" onclick="showHideLayers(event)">

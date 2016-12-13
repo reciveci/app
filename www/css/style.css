@@ -8,29 +8,27 @@
 }
 
 .affiliations-title{
-
   font-family:'ArialRounded', sans-serif;
-  font-size: 30px;
-  line-height: 24px;
+  font-size: 22px;
+  /*line-height: 24px;*/
   text-align:center;
-
+  padding-bottom: 15px;
 }
 
 .map-poup {
-
-font-family:'ArialRounded', sans-serif;
-font-size: 20px;
-text-align:center;
-color: #3b5998;
-  }
+  font-family:'ArialRounded', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  color: #3b5998;
+  max-width: 200px;
+}
 
 .map-content-popup {
-
   line-height: 1.5;
   white-space: pre-wrap;
   text-align:center;
   font-size: 10px;
-
+  color: black;
 }
 
 

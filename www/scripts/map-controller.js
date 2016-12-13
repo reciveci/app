@@ -7,6 +7,25 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
     var layerAffiliations;
     var layerBusiness;
 
+
+    goToRepSalvador = function() {
+      map.setView(new L.LatLng(-0.181951, -78.480030), 15);
+      menu.closeMenu();
+    };
+
+    goToLaFloresta = function() {
+      map.setView(new L.LatLng(-0.210280,-78.4871193), 15);
+      menu.closeMenu();
+    };
+
+    goToAllSectors = function(zoom) {
+      map.setView(new L.LatLng(-0.1971527023738858, -78.49267959594727), zoom);
+      menu.closeMenu();
+    };
+
+
+
+
     //algoritmo usado con checkboxs
 
     var loadMap = function() {
@@ -175,7 +194,7 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
                     $scope.openAffiliation(feature);
                 });
                 // Insert whatever you want into the container, using whichever approach you prefer
-                container.html("<div class=map-poup >"+"<a class='profile-link' href='#'>"+feature.properties["name"]+"</div>"+
+                container.html("<div class=map-poup>"+"<a class='profile-link' href='#'>"+feature.properties["name"]+"</a></div>"+
                                "<div class=map-content-popup>"+feature.properties["address"]+"</div>"
                               );
 
@@ -390,10 +409,12 @@ myApp.controller('MapController', function($scope, $timeout,$properties) {
             if(event.target.checked) {
                 layerAffiliations.addTo(map);
                 localStorage.setItem("estado_affiliations","elegido");
+                goToAllSectors(12);
             }
             else {
                 map.removeLayer(layerAffiliations);
                 localStorage.removeItem("estado_affiliations");
+                goToAllSectors(13);
             }
         }
     }
